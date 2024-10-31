@@ -1,167 +1,105 @@
 import network
 import utime
-import machine 
+import machine
 import urequests
 import gc
 import esp
 
-conexion = network.WLAN(network.STA_IF)  ## crea objeto de la conexion wifi
-gc.enable()                              ## habilita el recolector de basura, limpia la memoria ram del esp32
-esp.osdebug(None)                        ## funcion avanzada para la deteccion de errores que no usaremos
-wdt=machine.WDT(timeout=90000)           ## WATCHODOG TIMER, si el sistema no lo alimenta en el tiempo estipulado reinicia la aplicacion
-led = machine.Pin(2,machine.Pin.OUT)     ## habilita el pin 2 como salida para el led indicador
+conexion = network.WLAN(network.STA_IF)  # crea objeto de la conexion wifi
+gc.enable()  # habilita el recolector de basura, limpia la memoria ram del esp32
+# funcion avanzada para la deteccion de errores que no usaremos
+esp.osdebug(None)
+# WATCHODOG TIMER, si el sistema no lo alimenta en el tiempo estipulado reinicia la aplicacion
+wdt = machine.WDT(timeout=90000)
+# habilita el pin 2 como salida para el led indicador
+led = machine.Pin(2, machine.Pin.OUT)
 
-#######################################entradas#######################################
-boton_extractor_sur_grande= machine.Pin(23,machine.Pin.IN,machine.Pin.PULL_UP)         # entrada de señales por PULL-UP
-boton_extractor_sur_pequeño= machine.Pin(22,machine.Pin.IN,machine.Pin.PULL_UP)         # entrada de señales por PULL-UP
-boton_extractor_norte_grande= machine.Pin(21,machine.Pin.IN,machine.Pin.PULL_UP)         # entrada de señales por PULL-UP
-boton_extractor_norte_pequeño= machine.Pin(19,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa1_1= machine.Pin(18,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa1_2= machine.Pin(17,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa2_1= machine.Pin(16,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa2_2= machine.Pin(4,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa3_1= machine.Pin(26,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
-boton_aa3_2= machine.Pin(27,machine.Pin.IN,machine.Pin.PULL_UP)              # entrada de señales por PULL-UP
+####################################### entradas#######################################
+# entrada de señales por PULL-UP
+boton_bt1 = machine.Pin(22, machine.Pin.IN, machine.Pin.PULL_UP)
+# entrada de señales por PULL-UP
+boton_c1 = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
 
 
-
-def conexion_wifi():                                   #FUNCION de conexion al wifi
+def conexion_wifi():  # FUNCION de conexion al wifi
     try:
         print("estableciendo conexion a la red qq")
-        conexion.active(True)                          # activa la conexion al wifi 
+        # activa la conexion al wifi
+        conexion.active(True)
         lista = conexion.scan()                        # scanea las redes wifi disponibles
         for red in lista:
-            print(red[0].decode())                     # crea una lista con las redes disponibles
-        conexion.connect("TP-Link_A3C8","")    # se conecta a la red, se debe ingresar aqui usuario y clave de la red conocida
+            # crea una lista con las redes disponibles
+            print(red[0].decode())
+        # se conecta a la red, se debe ingresar aqui usuario y clave de la red conocida
+        conexion.connect("TP-Link_A3C8", "")
 #        conexion.connect("prueba","12345678")
 #        conexion.connect("gus","854317gm")
         while not conexion.isconnected():
-            print(".")                                 # mientras no haya coneccion imprime un .
-            utime.sleep(1)            
-        print(conexion.ifconfig())                     # devuelve los valores de la conexion (direccion ip, mascara, dns, etc)
+            # mientras no haya coneccion imprime un .
+            print(".")
+            utime.sleep(1)
+        # devuelve los valores de la conexion (direccion ip, mascara, dns, etc)
+        print(conexion.ifconfig())
         print(conexion.config("mac"))
     except:                                            # si la tarjeta detecta un error
         print("error en la conexion")
         utime.sleep(3)                                 # espera 3 seg
         conexion.disconnect()                          # se desconecta de la red
-        utime.sleep(6)                                 # espera 6 seg para cerrar totalmente
+        # espera 6 seg para cerrar totalmente
+        utime.sleep(6)
         print("... reconectando")
-        continuar1=False                               # rompe el bucle while principal
+        continuar1 = False                               # rompe el bucle while principal
+
 
 def blink():
-    led.on()                             
-    utime.sleep(0.5)                         # FUNCION que hace titilar el led cuando el algoritmo envia datos
+    led.on()
+    # FUNCION que hace titilar el led cuando el algoritmo envia datos
+    utime.sleep(0.5)
     led.off()
     utime.sleep(1)
-###########################################################################################################    
+###########################################################################################################
+
 
 global continuar1                                     # se declaran las variables
 global continuar2
-continuar1=True    # bandera del bucle de conexion al wifi
-continuar2=False   # bandera del bucle de trabajo
-contador=0         # contador de envios fallidos del metodo post
-contador2=0        # contador de recepciones fallidas del metodo get
-contador3=0        # contador de envios exitosos del metodo post
+continuar1 = True    # bandera del bucle de conexion al wifi
+continuar2 = False   # bandera del bucle de trabajo
+contador = 0         # contador de envios fallidos del metodo post
+contador2 = 0        # contador de recepciones fallidas del metodo get
+contador3 = 0        # contador de envios exitosos del metodo post
 
 
 ######### tarjeta 1 #######
-compresor1_chiller1=0
-compresor2_chiller1=0
-compresor3_chiller1=0
-flujo_chiller1=0
-temperatura_chiller1=0
-######### tarjeta 2 #######
-compresor1_chiller2=0
-compresor2_chiller2=0
-compresor3_chiller2=0
-flujo_chiller2=0
-switch_chiller2=0
-corpoelec_440v=0
-######### tarjeta 3 #######
-switch_bomba1_chiller=0
-motor_bomba1_chiller=0
-falla_bomba1_chiller=0
-switch_bomba2_chiller=0
-motor_bomba2_chiller=0
-falla_bomba2_chiller=0
-switch_bomba3_chiller=0
-motor_bomba3_chiller=0
-falla_bomba3_chiller=0
-######### tarjeta 4 #######
-switch_uma40ton=0
-motor_uma40ton=0
-falla_uma40ton=0
-reloj_uma40ton=0
-######### tarjeta 5 #######
-chiller=0
-asc1=0
-planta=0
-temperatura=0
-######### tarjeta 6 #######
-#switch_extractor1=0
-#motor_extractor1=0
-#falla_extractor1=0
-#reloj_estractor1=0
-######### tarjeta 7 #######
-#switch_extractor2=0
-#motor_extractor2=0
-#falla_extractor2=0
-#reloj_extractor2=0
-#corpoelec_220v=0
-######### tarjeta 8 #######
-#energizado_asc_corp=0
-funcionamiento_asc_corp=0
-falla_asc_corp=0
-######### tarjeta 9 #######
-energizado_asc_lobbynorte=0
-funcionamiento_asc_lobbynorte=0
-falla_asc_lobbynorte=0
-######### tarjeta 10 #######
-energizado_asc_lobbysur=0
-funcionamiento_asc_lobbysur=0
-falla_asc_lobbysur=0
-######### tarjeta 11 #######
-energizado_asc_carganorte=0
-funcionamiento_asc_carganorte=0
-falla_asc_carganorte=0
-######### tarjeta 12 #######
-reloj_uma_sala17=0
-motor_uma_sala17=0
-falla_uma_sala17=0
-## en total 52 variables programadas #######################
+# bt1=0
+# c1=0
 
-while (continuar1):                              #  <<<< bucle while principal >>>>
+## en total 2 variables programadas #######################
+
+while (continuar1):  # <<<< bucle while principal >>>>
     conexion_wifi()                                     # activa la conexion al wifi
-    if (conexion.isconnected()):                        # si la conexion esta correcta activa la bandera del bucle de trabajo
-        continuar2=True            
-    while (continuar2):                          #  <<<< bucle while de trabajo >>>>
-        
-        ############################################captura los datos en la tarjeta##########################################
-        dato_tarjeta='tarjeta6'      
-        switch_extractor1=int(boton_extractor_sur_grande.value())            # sensa el estado del pin 22
-        motor_extractor1=int(boton_extractor_sur_pequeño.value())            # sensa el estado del pin 23
-        falla_extractor1=int(boton_extractor_norte_grande.value())            # sensa el estado del pin 39
-        reloj_estractor1=int(boton_extractor_norte_pequeño.value())                      # sensa el estado del pin 34
-        switch_extractor2=int(boton_aa1_1.value())            # sensa el estado del pin 22
-        motor_extractor2=int(boton_aa1_2.value())            # sensa el estado del pin 22
-        falla_extractor2=int(boton_aa2_1.value())            # sensa el estado del pin 22
-        reloj_extractor2=int(boton_aa2_2.value())            # sensa el estado del pin 22
-        corpoelec_220v=int(boton_aa3_1.value())            # sensa el estado del pin 22
-        energizado_asc_corp=int(boton_aa3_2.value())            # sensa el estado del pin 22     
-        
-        print("motor_bomba1_chiller= "+str(switch_extractor1))
-        print("motor_bomba2_chiller= "+str(motor_extractor1))
-       
-        
+    # si la conexion esta correcta activa la bandera del bucle de trabajo
+    if (conexion.isconnected()):
+        continuar2 = True
+    while (continuar2):  # <<<< bucle while de trabajo >>>>
+
+        ############################################ captura los datos en la tarjeta##########################################
+        dato_tarjeta = 'tarjeta1'
+        bt1 = int(bt1.value())            # sensa el estado del pin 22
+        c1 = int(c1.value())            # sensa el estado del pin 21
+
+        print("Banda Transportadora 1= "+str(bt1))
+        print("Contador de Produccion 1= "+str(c1))
+
         #########################################################################################################################
         gc.collect()                                # limpia la basura de la memoria ram
-        print(gc. mem_free ( ))                     # imprime cuanta memoria hay disponible
-        
+        # imprime cuanta memoria hay disponible
+        print(gc. mem_free())
+
         blink()                                     # hace destellar el led de la tarjeta
-        
-########################################################  METODO GET  #########################################       
+
+########################################################  METODO GET  #########################################
 #         try:
-#             print("realizando peticion GET")            
+#             print("realizando peticion GET")
 #             peticion=urequests.get('https://ingenieriamcy.000webhostapp.com/prueba_recibe2.php')  # envia la solicitud a la pagina indicada
 #             utime.sleep(10)
 #             print(peticion.status_code)                                                          # codigo de respuesta de la pagina
@@ -169,54 +107,46 @@ while (continuar1):                              #  <<<< bucle while principal >
 #         except:
 #             print("====>no hay respuesta GET")
 #             contador2=contador2+1
-#             print(str(contador2) + " de intentos de solicitud fallida")            
+#             print(str(contador2) + " de intentos de solicitud fallida")
 #             if ((contador2)>4):
 #                 print("...reiniciando conexion")
 #                 conexion.disconnect()
 #                 utime.sleep(10)
 #                 continuar2=False
-#                 contador2=0            
+#                 contador2=0
 ######################################################### METODO POST   +'$  ='+str( )   #####################################################################
-        try:   
-            dato= ('&device_label='+ str(dato_tarjeta) + '&compresor1_chiller1='+ str(compresor1_chiller1) + '&compresor2_chiller1='+ str(compresor2_chiller1) + '&compresor3_chiller1='+ str(compresor3_chiller1) +'&flujo_chiller1='+ str(flujo_chiller1) + '&temperatura_chiller1='+str(temperatura_chiller1) +
-                   '&compresor1_chiller2='+ str(compresor1_chiller2) + '&compresor2_chiller2='+ str(compresor2_chiller2) + '&compresor3_chiller2='+ str(compresor3_chiller2) +'&flujo_chiller2='+ str(flujo_chiller2) + '&switch_chiller2='+str(switch_chiller2)+'&corpoelec_440v='+str(corpoelec_440v) +
-                   '&switch_bomba1_chiller='+str(switch_bomba1_chiller)+'&motor_bomba1_chiller='+str(motor_bomba1_chiller) + '&falla_bomba1_chiller='+str(falla_bomba1_chiller) + '&switch_bomba2_chiller='+str(switch_bomba2_chiller) + '&motor_bomba2_chiller='+str(motor_bomba2_chiller) + '&falla_bomba2_chiller='+str(falla_bomba2_chiller) + '&switch_bomba3_chiller='+str(switch_bomba3_chiller) + '&motor_bomba3_chiller='+str(motor_bomba3_chiller) + '&falla_bomba3_chiller='+str(falla_bomba3_chiller) +
-                   '&switch_uma40ton='+str(switch_uma40ton) + '&motor_uma40ton='+str(motor_uma40ton) + '&falla_uma40ton='+str(falla_uma40ton) + '&reloj_uma40ton='+str(reloj_uma40ton) +
-                   '&chiller='+ str(chiller) + '&ascensor1='+ str(asc1) + '&planta_sur='+ str(planta) + '&temperature='+str(temperatura) +
-                   '&switch_extractor1='+str(switch_extractor1) + '&motor_extractor1='+str(motor_extractor1) + '&falla_extractor1='+str(falla_extractor1) + '&reloj_estractor1='+str(reloj_estractor1) +
-                   '&switch_extractor2='+str(switch_extractor2) + '&motor_extractor2='+str(motor_extractor2) + '&falla_extractor2='+str(falla_extractor2) + '&reloj_extractor2='+str(reloj_extractor2) + '&corpoelec_220v='+str(corpoelec_220v) +                  
-                   '&energizado_asc_corp='+ str(energizado_asc_corp) + '&funcionamiento_asc_corp='+ str(funcionamiento_asc_corp) + '&falla_asc_corp='+str(falla_asc_corp) +
-                   '&energizado_asc_lobbynorte='+str(energizado_asc_lobbynorte) + '&funcionamiento_asc_lobbynorte='+str(funcionamiento_asc_lobbynorte) + '&falla_asc_lobbynorte='+str(falla_asc_lobbynorte) +
-                   '&energizado_asc_lobbysur='+str(energizado_asc_lobbysur) + '&funcionamiento_asc_lobbysur='+str(funcionamiento_asc_lobbysur) + '&falla_asc_lobbysur='+str(falla_asc_lobbysur) +
-                   '&energizado_asc_carganorte='+str(energizado_asc_carganorte) + '&funcionamiento_asc_carganorte='+str(funcionamiento_asc_carganorte) + '&falla_asc_carganorte='+str(falla_asc_carganorte) +
-                   '&reloj_uma_sala17='+str(reloj_uma_sala17) + '&motor_uma_sala17='+str(motor_uma_sala17) + '&falla_uma_sala17='+str(falla_uma_sala17)
-                   )
-         
+        try:
+            dato = ('&device_label=' + str(dato_tarjeta) +
+                    '&bt1=' + str(bt1) + '&c1=' + str(c1))
 
-            datos=dato
+            datos = dato
             print("realizando peticion POST")
-            cabezera={'Content-Type':'application/x-www-form-urlencoded'}    # cabezera de la pagina a enviar los datos del formulario                                                                                                                    # tiempo de muestreo
-            
-            #envio_datos= urequests.post('https://ingenieriamcy.000webhostapp.com/prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
-            #envio_datos= urequests.post('https://iotgus.000webhostapp.com//prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
-            envio_datos= urequests.post('https://talleratlas.com/monitoreo_lasamericas/prueba_recibe2.php',data=datos,headers=cabezera)
+            # cabezera de la pagina a enviar los datos del formulario                                                                                                                    # tiempo de muestreo
+            cabezera = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-            
+            # envio_datos= urequests.post('https://ingenieriamcy.000webhostapp.com/prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
+            # envio_datos= urequests.post('https://iotgus.000webhostapp.com//prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
+            envio_datos = urequests.post(
+                'https://talleratlas.com/monitoreo_lasamericas/prueba_recibe2.php', data=datos, headers=cabezera)
+
             utime.sleep(10)
             print(envio_datos.status_code)  # imprime codigo de respuesta
             print(envio_datos.text)         # imprime la respuesta de la pagina
-            contador3=contador3+1
-            print("================================>"+ str(contador3)+" envios exitosos")                       
+            contador3 = contador3+1
+            print("================================>" +
+                  str(contador3)+" envios exitosos")
         except:
-            print("====>no hay respuesta POST")            
-            contador=contador+1
+            print("====>no hay respuesta POST")
+            contador = contador+1
             print(str(contador) + " de intentos de envios fallidos")
             utime.sleep(10)
-            if ((contador)>4):                                 # si el numero de intentos de envios post fallidos supera lo establecido
-                print("...reiniciando conexion")            
+            # si el numero de intentos de envios post fallidos supera lo establecido
+            if ((contador) > 4):
+                print("...reiniciando conexion")
                 conexion.disconnect()                          # se desconecta del wifi
                 utime.sleep(10)                                # espera 10 seg
-                continuar2=False                               # rompe el bucle de trabajo
-                contador=0                                     # vuelve a cero el contador de envios fallidos
-###########################################################################################################################  
-        wdt.feed()  
+                continuar2 = False                               # rompe el bucle de trabajo
+                # vuelve a cero el contador de envios fallidos
+                contador = 0
+###########################################################################################################################
+        wdt.feed()
