@@ -72,11 +72,7 @@ $falla_uma_sala17=$_POST['falla_uma_sala17'];
 
 $conn = new conexionweb(); //crea la conexion
 
-//$consulta_insert = "INSERT INTO historicodedispositivos(idtarjeta,variable,valor_variable,fecha) VALUES ('$tarjeta','chiller','$chiller',NOW())";//inserta datos en la tabla
-//$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta chiller l5
 
-//$consulta_insert = "INSERT INTO historicodedispositivos(idtarjeta,variable,valor_variable,fecha) VALUES ('$tarjeta','asc_1','$ascensor1',NOW())";
-//$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta humedad
 ///////////////////////////////////UPDATE/////////////////////////////////////////////////////////////////////////////
 $consulta_update = "UPDATE estado_dispositivo SET compresor1_chiller1='$compresor1_chiller1',compresor2_chiller1='$compresor2_chiller1',compresor3_chiller1='$compresor3_chiller1',flujo_chiller1='$flujo_chiller1',temperatura_chiller1='$temperatura_chiller1',compresor1_chiller2='$compresor1_chiller2', compresor2_chiller2='$compresor2_chiller2',compresor3_chiller2='$compresor3_chiller2',flujo_chiller2='$flujo_chiller2',switch_chiller2='$switch_chiller2', corpoelec_440v='$corpoelec_440v',switch_bomba1_chiller='$switch_bomba1_chiller',motor_bomba1_chiller='$motor_bomba1_chiller',falla_bomba1_chiller='$falla_bomba1_chiller',switch_bomba2_chiller='$switch_bomba2_chiller', motor_bomba2_chiller='$motor_bomba2_chiller',falla_bomba2_chiller='$falla_bomba2_chiller', switch_bomba3_chiller='$switch_bomba3_chiller',motor_bomba3_chiller='$motor_bomba3_chiller',falla_bomba3_chiller='$falla_bomba3_chiller',switch_uma40ton='$switch_uma40ton',motor_uma40ton='$motor_uma40ton',falla_uma40ton='$falla_uma40ton',reloj_uma40ton='$reloj_uma40ton',chiller_1= '$chiller',ascensor1_1='$ascensor1',planta_sur_1='$planta',temperature_1='$temperatura',fecha= NOW(),switch_extractor1='$switch_extractor1',motor_extractor1='$motor_extractor1', falla_extractor1='$falla_extractor1',reloj_estractor1='$reloj_estractor1',switch_extractor2='$switch_extractor2',motor_extractor2='$motor_extractor2', falla_extractor2='$falla_extractor2',reloj_extractor2='$reloj_extractor2',corpoelec_220v='$corpoelec_220v',energizado_asc_corp='$energizado_asc_corp', funcionamiento_asc_corp='$funcionamiento_asc_corp',falla_asc_corp='$falla_asc_corp',energizado_asc_lobbynorte='$energizado_asc_lobbynorte', funcionamiento_asc_lobbynorte='$funcionamiento_asc_lobbynorte',falla_asc_lobbynorte='$falla_asc_lobbynorte',energizado_asc_lobbysur='$energizado_asc_lobbysur', funcionamiento_asc_lobbysur='$funcionamiento_asc_lobbysur',falla_asc_lobbysur='$falla_asc_lobbysur',reloj_uma_sala17='$reloj_uma_sala17',motor_uma_sala17='$motor_uma_sala17',falla_uma_sala17='$falla_uma_sala17' WHERE num_tarjeta = '$tarjeta'"; //actualiza datos en la tabla (importantisimo)
 $update = mysqli_query($conn->conectardb2(),$consulta_update); //Update
@@ -143,6 +139,6 @@ echo"{Aenergizado_asc_corp=".$row_8[39].",Afuncionamiento_asc_corp=".$row_8[40].
 
 
 //echo"datos enviados desde html <br>";
-//echo"{Tipo_tarjeta:".$tarjeta.",chiller:".$chiller.",ascensor1:".$ascensor1."}";
+//gus echo"{Tipo_tarjeta:".$tarjeta.",chiller:".$chiller.",ascensor1:".$ascensor1."}";
 
 ?>
