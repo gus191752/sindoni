@@ -1,0 +1,510 @@
+.contenedor_parametros {
+    /*posicion*/
+    /* box model*/
+    width: auto;
+    height: auto;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -1px 1px 7px 1px rgba(0, 0, 0, 0.75);
+  }
+  
+  .carrusel {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .carrusel-items {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 30px 0;
+  }
+  .carrusel-item {
+    min-width: 300px;
+    max-width: 300px;
+    height: 200px;
+    outline: 2px solid black;
+    cursor: pointer;
+  }
+  .carrusel-item:hover {
+    transform: scale(1, 2);
+  }
+  .carrusel-item img {
+    height: 100%;
+    width: 100%;
+  }
+  #icono_ojo {
+    height: auto;
+    width: auto;
+    max-height: 50px;
+    max-width: 50px;
+    position: relative;
+  }
+  h1                     /*   titulo principal  */ {
+    /*posicion*/
+    /* box model*/
+    /* texto*/
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    /* visual*/
+    color: black;
+    /* otros*/
+  }
+  h2                    /*    titulo secundario  */ {
+    /*posicion*/
+    /* box model*/
+    /* texto*/
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    /* visual*/
+    color: black;
+    /* otros*/
+  }
+  h3                    /* titulo equipos especificos a la izquierda    */ {
+    /*posicion*/
+    /* box model*/
+    /* texto*/
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    /* visual*/
+    color: green;
+    /* otros*/
+  }
+  #titulo_principal {
+    /*posicion*/
+    /* box model*/
+    /* texto*/
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    /* visual*/
+    color: blue;
+    /* otros*/
+  }
+  body {
+    /*posicion*/
+    margin: 20px;
+    font-family: sans-serif;
+    padding: 90px 20px 0;
+    min-height: 100%;
+    /* box model*/
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  
+  html {
+    height: 100%;
+  }
+  
+  .contenedorTotal {
+    /* diseño dispositivos escritorio*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-width: 100%;
+  }
+  
+  .contenedorTotal > section {
+    /* diseño dispositivos escritorio*/
+    box-shadow: -1px 1px 7px 1px rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+  }
+  
+  .footer {
+    width: 100%;
+    background-color: #0769e9;
+    height: auto;
+  }
+  
+  p3                        /* letra roja a la izq    */ {
+    /*posicion*/
+    /* box model*/
+    font-weight: bold;
+    /* texto*/
+    /* visual*/
+    color: red;
+    /* otros*/
+  }
+  p2                       /*   letra azul a la izq  */ {
+    /*posicion*/
+    /* box model*/
+    font-weight: bold;
+    /* texto*/
+    /* visual*/
+    color: blue;
+    /* otros*/
+  }
+  p1                       /*    letra negra a la izq */ {
+    /*posicion*/
+    /* box model*/
+    font-weight: bold;
+    /* texto*/
+    /* visual*/
+    color: black;
+    /* otros*/
+  }
+  div5    /*    chiller 1 chiller 2  */ {
+    /*posicion*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div2    /*    chiller 1  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div3    /*    chiller 2 */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div15    /*    Sistema de umas  */ {
+    /*posicion*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div16    /*    umas sala 17  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div11    /*    umas 40 ton */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  
+  div20 {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .imagen_advertencia {
+    height: auto;
+    width: auto;
+    max-height: 50px;
+    max-width: 50px;
+    position: relative;
+    display: none;
+  }
+  div7    /*    titulos  */ {
+    /*posicion*/
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div10    /*   bombas del sistema chiller    */ {
+    /*posicion*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div4    /*    bomba 1 chiller  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div8    /*   bomba 2 chiller   */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div9    /*   bomba 3 chiller   */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div12    /*    sistema de extraccion 1 y 2 */ {
+    /*posicion*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div13    /*    extractor 1  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div14    /*    extractor 2 */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div17    /*    Sistema de ascensores  */ {
+    /*posicion*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* box model*/
+    height: auto;
+    /* texto*/
+    /* visual*/
+    /* otros*/
+  }
+  div18    /* ascensor corporativo  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div19    /* ascensor lobby norte  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div20    /* ascensor lobby sur  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  div21    /* ascensor carga norte  */ {
+    /*posicion*/
+    /* box model*/
+    margin: 15px;
+    /* texto*/
+    /* visual*/
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    /* otros*/
+  }
+  
+  /* //////////////////// menu hamburguesa//////////////////////////////  */
+  
+  .cabezera {
+    background-color: #0769e9;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  .contenedor {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  .contenedor-link {
+    color: white;
+    text-decoration: none;
+  }
+  .logo {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0 40px;
+    line-height: 80px;
+  }
+  .contenedor-menu {
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+  }
+  .contenedor-menu-item {
+    font-size: 18px;
+    margin: 0 10px;
+    line-height: 80px;
+    text-transform: uppercase;
+    width: max-content;
+  }
+  .contenedor-menu-link {
+    padding: 8px 12px;
+    border-radius: 3px;
+  }
+  .contenedor-menu-link:hover,
+  .contenedor-menu-link_active {
+    background-color: #034574;
+    transition: 0.5s;
+  }
+  
+  .contenedor-boton {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    cursor: pointer;
+    display: none;
+    left: 100%;
+    background-color: red;
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      padding: 70px;
+    }
+  
+    .contenedorTotal {
+      /* diseño dispositivos moviles*/
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 350px;
+    }
+    .contenedorTotal > section {
+      /* diseño dispositivos escritorio*/
+      box-shadow: -1px 1px 7px 1px rgba(0, 0, 0, 0.75);
+      border-radius: 4px;
+    }
+  
+    .footer {
+      width: 100%;
+      background-color: #0769e9;
+      height: auto;
+    }
+  
+    .logo {
+      font-size: 25px;
+      padding: 0 20px;
+      line-height: 60px;
+    }
+  
+    .contenedor-menu {
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      background-color: #2c3e50;
+      position: fixed;
+      top: 60px;
+      width: 100%;
+      padding: 20px 0;
+  
+      height: calc(100% - 60px);
+      overflow-y: auto;
+  
+      left: 100%;
+      transition: left 0.83s;
+    }
+    .contenedor-menu-item {
+      line-height: 70px;
+    }
+    .contenedor-menu-link:hover,
+    .contenedor-menu-link_active {
+      background: none;
+      color: #83c5f7;
+    }
+    .contenedor-boton {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 80%;
+    }
+  
+    .contenedor-menu_visible {
+      left: 0;
+    }
+  
+    .contenedor-boton:focus:not(:focus-visible) {
+      outline: none;
+    }
+  }
