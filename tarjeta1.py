@@ -18,7 +18,7 @@ led = machine.Pin(2, machine.Pin.OUT)
 # entrada de señales por PULL-UP
 boton_bt1 = machine.Pin(22, machine.Pin.IN, machine.Pin.PULL_UP)
 # entrada de señales por PULL-UP
-boton_c1 = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
+# boton_c1 = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
 
 
 def conexion_wifi():  # FUNCION de conexion al wifi
@@ -57,6 +57,101 @@ def blink():
     utime.sleep(0.5)
     led.off()
     utime.sleep(1)
+
+
+############################# Interrupcion en el pin 21 ######################################
+def encoder_handler(pin):
+    global paso
+    global conteo
+    paso += 1
+    conteo += 1
+
+############################ Multi_Hilo para contar las RPM ##################################
+
+
+def hilo_conteo():
+    global paso
+   # global rpm
+    global conteo
+    global prod_minuto
+    paso = 0
+    conteo = 0
+    prod_minuto = 0
+
+    encoder = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
+    encoder.irq(trigger=machine.Pin.IRQ_FALLING, handler=encoder_handler)
+
+    timer_start = utime.ticks_ms()
+
+    while True:
+
+        # usando unicamente retardo
+        #         utime.sleep_ms(1000)
+        #         state= machine.disable_irq()
+        #         rpm=(paso*60)/2
+        #         paso=0
+        #         print(rpm,'RPM')
+        #         machine.enable_irq(state)
+
+        timer_elapsed = utime.ticks_diff(utime.ticks_ms(), timer_start)
+        if timer_elapsed >= 1000:
+            # calculo las rpm
+            state = machine.disable_irq()
+            # rpm = (paso*60)/1024
+            conteo = paso
+            paso = 0
+            machine.enable_irq(state)
+            timer_start = utime.ticks_ms()
+           # print(rpm,'RPM')
+            print(conteo, 'pulsos')
+
+
+_thread.start_new_thread(hilo_conteo, ())
+
+############################## Multi_Hilo para contar la produccion ############################
+# def hilo_conteo_produccion():
+#     global paso
+#     global conteo
+#     global prod
+#     global prod_minuto
+#     paso = 0
+#     conteo = 0
+#     prod_minuto = 0
+#
+#     encoder= machine.Pin(23,machine.Pin.IN,machine.Pin.PULL_UP)
+#     #encoder= machine.Pin(23,machine.Pin.IN,machine.Pin.PULL_DOWN)
+#     #encoder.irq(trigger=machine.Pin.IRQ_FALLING, handler=encoder_handler)
+#     encoder.irq(trigger=machine.Pin.IRQ_RISING, handler=encoder_handler)
+#     timer_start= utime.ticks_ms()
+#
+#     while True:
+#
+#         #usando unicamente retardo
+# #         utime.sleep_ms(1000)
+# #         state= machine.disable_irq()
+# #         rpm=(paso*60)/2
+# #         paso=0
+# #         print(rpm,'RPM')
+# #         machine.enable_irq(state)
+#
+#         timer_elapsed = utime.ticks_diff(utime.ticks_ms(),timer_start)
+#         if timer_elapsed >= 1000:  #  ===>>>  cuenta durante 5 minutos
+#             #calculo las rpm
+#             state= machine.disable_irq()
+#
+#             prod = paso
+#             prod_minuto = (paso*60)
+#
+#             paso=0
+#             machine.enable_irq(state)
+#             timer_start= utime.ticks_ms()
+#             #print(prod,'botellas')
+#             #print(prod_minuto,'botellas/minuto')
+#             #print(conteo,'conteo')
+# _thread.start_new_thread(hilo_conteo_produccion,())
+###########################################################################################################
+
+
 ###########################################################################################################
 
 
