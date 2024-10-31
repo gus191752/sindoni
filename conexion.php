@@ -1,6 +1,6 @@
 <?php
 
-ºclass conexionweb
+class conexionweb
 {
 	const user='root';
 	const pass='';
