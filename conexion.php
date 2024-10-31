@@ -1,10 +1,10 @@
 <?php
 
-class conexionweb2
+class conexionweb
 {
 	const user='root';
-	const pass='Mtto2023';
-	const db='id19420026_basedatos3';
+	const pass='';
+	const db='base_datos_sindoni';
 	const servidor='localhost';
 
 	public function conectardb2()

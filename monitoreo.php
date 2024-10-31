@@ -51,8 +51,8 @@ echo date('l jS \of F Y h:i:s A');
 //date_default_timezone_get();
 ////////////////////////////////////////////////////////////////////////////////////////////   
 
-require_once('conexion2.php');  //llama al archivo conexion.php
-$conn = new conexionweb2(); //crea la conexion
+require_once('conexion.php');  //llama al archivo conexion.php
+$conn = new conexionweb(); //crea la conexion
 
 //////////////////////////// tarjeta 5//////////////////////////////////
 $consulta_select_5 = "SELECT * FROM estado_dispositivo WHERE num_tarjeta='tarjeta5'";//selecciona datos en la tabla para ver su estado
