@@ -73,7 +73,7 @@ $falla_uma_sala17=$_POST['falla_uma_sala17'];
 $conn = new conexionweb(); //crea la conexion
 
 //$consulta_insert = "INSERT INTO historicodedispositivos(idtarjeta,variable,valor_variable,fecha) VALUES ('$tarjeta','chiller','$chiller',NOW())";//inserta datos en la tabla
-//$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta chiller
+//$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta chiller l
 
 //$consulta_insert = "INSERT INTO historicodedispositivos(idtarjeta,variable,valor_variable,fecha) VALUES ('$tarjeta','asc_1','$ascensor1',NOW())";
 //$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta humedad

@@ -3,7 +3,7 @@
 class conexionweb
 {
 	const user='root';
-	const pass='';
+	const pass='1234';
 	const db='base_datos_sindoni';
 	const servidor='localhost';
 

@@ -74,7 +74,7 @@ $estado_temperatura=$row_5[4];
 
 
 
-echo"<h3>Plaza Central6 </h3>";    
+echo"<h3>Plaza Central65 </h3>";    
     
 echo"<p1>Temperatura= ".$row_5[4]." °C</p1><br>";
 echo"<p1>Humedad Relativa = ".$row_5[1]." %</p1><br>";
