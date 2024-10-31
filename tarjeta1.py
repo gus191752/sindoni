@@ -84,8 +84,8 @@ while (continuar1):  # <<<< bucle while principal >>>>
 
         ############################################ captura los datos en la tarjeta##########################################
         dato_tarjeta = 'tarjeta1'
-        bt1 = int(bt1.value())            # sensa el estado del pin 22
-        c1 = int(c1.value())            # sensa el estado del pin 21
+        bt1 = int(boton_bt1.value())            # sensa el estado del pin 22
+        c1 = int(boton_c1.value())            # sensa el estado del pin 21
 
         print("Banda Transportadora 1= "+str(bt1))
         print("Contador de Produccion 1= "+str(c1))
