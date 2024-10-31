@@ -27,7 +27,7 @@ boton_aa3_2= machine.Pin(27,machine.Pin.IN,machine.Pin.PULL_UP)              # e
 
 def conexion_wifi():                                   #FUNCION de conexion al wifi
     try:
-        print("estableciendo conexion a la red")
+        print("estableciendo conexion a la red qq")
         conexion.active(True)                          # activa la conexion al wifi 
         lista = conexion.scan()                        # scanea las redes wifi disponibles
         for red in lista:
