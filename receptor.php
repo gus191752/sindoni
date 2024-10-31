@@ -139,6 +139,6 @@ echo"{Aenergizado_asc_corp=".$row_8[39].",Afuncionamiento_asc_corp=".$row_8[40].
 
 
 //echo"datos enviados desde html <br>";
-//gus echo"{Tipo_tarjeta:".$tarjeta.",chiller:".$chiller.",ascensor1:".$ascensor1."}";
+//gustavo echo"{Tipo_tarjeta:".$tarjeta.",chiller:".$chiller.",ascensor1:".$ascensor1."}";
 
 ?>
