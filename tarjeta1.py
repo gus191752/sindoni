@@ -210,38 +210,38 @@ while (continuar1):  # <<<< bucle while principal >>>>
 #                 continuar2=False
 #                 contador2=0
 ######################################################### METODO POST   +'$  ='+str( )   #####################################################################
-        try:
-            dato = ('&device_label=' + str(dato_tarjeta) +
-                    '&bt1=' + str(bt1) + '&c1=' + str(c1))
-
-            datos = dato
-            print("realizando peticion POST")
-            # cabezera de la pagina a enviar los datos del formulario                                                                                                                    # tiempo de muestreo
-            cabezera = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-            # envio_datos= urequests.post('https://ingenieriamcy.000webhostapp.com/prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
-            # envio_datos= urequests.post('https://iotgus.000webhostapp.com//prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
-            envio_datos = urequests.post(
-                'https://talleratlas.com/monitoreo_lasamericas/prueba_recibe2.php', data=datos, headers=cabezera)
-
-            utime.sleep(10)
-            print(envio_datos.status_code)  # imprime codigo de respuesta
-            print(envio_datos.text)         # imprime la respuesta de la pagina
-            contador3 = contador3+1
-            print("================================>" +
-                  str(contador3)+" envios exitosos")
-        except:
-            print("====>no hay respuesta POST")
-            contador = contador+1
-            print(str(contador) + " de intentos de envios fallidos")
-            utime.sleep(10)
-            # si el numero de intentos de envios post fallidos supera lo establecido
-            if ((contador) > 4):
-                print("...reiniciando conexion")
-                conexion.disconnect()                          # se desconecta del wifi
-                utime.sleep(10)                                # espera 10 seg
-                continuar2 = False                               # rompe el bucle de trabajo
-                # vuelve a cero el contador de envios fallidos
-                contador = 0
+#        try:
+#            dato = ('&device_label=' + str(dato_tarjeta) +
+#                    '&bt1=' + str(bt1) + '&c1=' + str(c1))
+#
+#            datos = dato
+#            print("realizando peticion POST")
+#            # cabezera de la pagina a enviar los datos del formulario                                                                                                                    # tiempo de muestreo
+#            cabezera = {'Content-Type': 'application/x-www-form-urlencoded'}
+#
+#            # envio_datos= urequests.post('https://ingenieriamcy.000webhostapp.com/prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
+#            # envio_datos= urequests.post('https://iotgus.000webhostapp.com//prueba_recibe2.php',data=datos,headers=cabezera)  # envio de datos metodo post
+#            envio_datos = urequests.post(
+#                'https://talleratlas.com/monitoreo_lasamericas/prueba_recibe2.php', data=datos, headers=cabezera)
+#
+#            utime.sleep(10)
+#            print(envio_datos.status_code)  # imprime codigo de respuesta
+#            print(envio_datos.text)         # imprime la respuesta de la pagina
+#            contador3 = contador3+1
+#            print("================================>" +
+#                  str(contador3)+" envios exitosos")
+#        except:
+#            print("====>no hay respuesta POST")
+#            contador = contador+1
+#            print(str(contador) + " de intentos de envios fallidos")
+#            utime.sleep(10)
+#            # si el numero de intentos de envios post fallidos supera lo establecido
+#            if ((contador) > 4):
+#                print("...reiniciando conexion")
+#                conexion.disconnect()                          # se desconecta del wifi
+#                utime.sleep(10)                                # espera 10 seg
+#                continuar2 = False                               # rompe el bucle de trabajo
+#                # vuelve a cero el contador de envios fallidos
+#                contador = 0
 ###########################################################################################################################
         wdt.feed()
