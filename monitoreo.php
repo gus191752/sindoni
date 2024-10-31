@@ -72,41 +72,9 @@ $estado_ascensor=$row_5[3];
 $estado_planta=$row_5[1];
 $estado_temperatura=$row_5[4];
 
-/*if ($estado_chiller==1)
-    {
-        echo"<p1>Chiller</p1><p3> Apagado</p3>";
-        echo"<br>";
-    }
-if ($estado_chiller==0)
-    {
-        echo"<p1>Chiller</p1><p2> Encendido</p2>";
-        echo"<br>";
-        
-    }
-if ($estado_ascensor==1)
-    {
-        echo"<p1>Ascensor</p1><p3> Apagado</p3>";
-        echo"<br>";
-    }
-if ($estado_ascensor==0)
-    {
-        echo"<p1>Ascensor</p1><p2> Encendido</p2>";
-        echo"<br>";
-    }
 
-if ($estado_planta==1)
-    {
-        echo"<p1>Planta</p1><p3> Apagada</p3>";
-        echo"<br>";
-    }
-if ($estado_planta==0)
-    {
-        echo"<p1>Planta</p1><p2> Encendido</p2>";
-        echo"<br>";
-    }
-*/
 
-echo"<h3>Plaza Central </h3>";    
+echo"<h3>Plaza Central6 </h3>";    
     
 echo"<p1>Temperatura= ".$row_5[4]." °C</p1><br>";
 echo"<p1>Humedad Relativa = ".$row_5[1]." %</p1><br>";
