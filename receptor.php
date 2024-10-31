@@ -1,6 +1,6 @@
 <?php
 
-require_once('conexion2.php');  //llama al archivo conexion.php
+require_once('conexion.php');  //llama al archivo conexion.php
 
 $tarjeta=$_POST['device_label'];      //obtiene el dato de html
 
@@ -70,7 +70,7 @@ $motor_uma_sala17=$_POST['motor_uma_sala17'];
 $falla_uma_sala17=$_POST['falla_uma_sala17'];
 ///////////////////////////////////////////////////////////////////
 
-$conn = new conexionweb2(); //crea la conexion
+$conn = new conexionweb(); //crea la conexion
 
 //$consulta_insert = "INSERT INTO historicodedispositivos(idtarjeta,variable,valor_variable,fecha) VALUES ('$tarjeta','chiller','$chiller',NOW())";//inserta datos en la tabla
 //$insert = mysqli_query($conn->conectardb(),$consulta_insert); //inserta chiller
