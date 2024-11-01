@@ -4,6 +4,14 @@ import machine
 import urequests
 import gc
 import esp
+import _thread
+
+global continuar
+global rpm
+global prod
+global prod_minuto
+global paso
+global conteo
 
 conexion = network.WLAN(network.STA_IF)  # crea objeto de la conexion wifi
 gc.enable()  # habilita el recolector de basura, limpia la memoria ram del esp32
@@ -31,9 +39,9 @@ def conexion_wifi():  # FUNCION de conexion al wifi
             # crea una lista con las redes disponibles
             print(red[0].decode())
         # se conecta a la red, se debe ingresar aqui usuario y clave de la red conocida
-        conexion.connect("TP-Link_A3C8", "")
+#        conexion.connect("TP-Link_A3C8", "")
 #        conexion.connect("prueba","12345678")
-#        conexion.connect("gus","854317gm")
+        conexion.connect("gus","854317gamp")
         while not conexion.isconnected():
             # mientras no haya coneccion imprime un .
             print(".")
@@ -97,9 +105,12 @@ def hilo_conteo():
         if timer_elapsed >= 1000:
             # calculo las rpm
             state = machine.disable_irq()
-            # rpm = (paso*60)/1024
-            conteo = paso
-            paso = 0
+            #rpm = (paso*60)/1024
+            #conteo = paso
+            #paso = 0
+            
+            
+            
             machine.enable_irq(state)
             timer_start = utime.ticks_ms()
            # print(rpm,'RPM')
@@ -180,10 +191,10 @@ while (continuar1):  # <<<< bucle while principal >>>>
         ############################################ captura los datos en la tarjeta##########################################
         dato_tarjeta = 'tarjeta1'
         bt1 = int(boton_bt1.value())            # sensa el estado del pin 22
-        c1 = int(boton_c1.value())            # sensa el estado del pin 21
+        #c1 = int(boton_c1.value())            # sensa el estado del pin 21
 
         print("Banda Transportadora 1= "+str(bt1))
-        print("Contador de Produccion 1= "+str(c1))
+        #print("Contador de Produccion 1= "+str(c1))
 
         #########################################################################################################################
         gc.collect()                                # limpia la basura de la memoria ram
