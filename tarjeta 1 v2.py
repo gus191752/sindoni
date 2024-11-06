@@ -185,4 +185,4 @@ while (continuar1):  # <<<< bucle while principal >>>>
             print("ciclo exitoso")
         
 ###########################################################################################################################
-        wdt.feed()                                # watchdog
+        wdt.feed()                                # WATCHODOG TIMER
