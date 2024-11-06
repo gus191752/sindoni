@@ -11,6 +11,8 @@ global actual
 global anterior
 global cont
 global c1
+global cont
+global bandera
 
 conexion = network.WLAN(network.STA_IF)  # crea objeto de la conexion wifi
 gc.enable()  # habilita el recolector de basura, limpia la memoria ram del esp32
@@ -183,4 +185,4 @@ while (continuar1):  # <<<< bucle while principal >>>>
             print("ciclo exitoso")
         
 ###########################################################################################################################
-        wdt.feed()
+        wdt.feed()                                # watchdog
