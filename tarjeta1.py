@@ -12,7 +12,7 @@ global anterior
 global cont
 global c1
 
-conexion = network.WLAN(network.STA_IF)  # crea objeto de la conexion wifi
+conexion = network.WLAN(network.STA_IF)  # crea objeto de la conexion wifi aaa
 gc.enable()  # habilita el recolector de basura, limpia la memoria ram del esp32
 # funcion avanzada para la deteccion de errores que no usaremos
 esp.osdebug(None)
