@@ -55,10 +55,10 @@ print(buscar_datos_en_columna)
 plt.style.use('default')  # estilo del grafico
 datos['Cantidad']=datos['Cantidad'].replace(',','',regex=True) # corrige los datos que no pueden convertirse en float
 datos['Cantidad']=datos['Cantidad'].astype(float)   # convierte los datos string en float
-datos['Fe.contabilización']=datos['Fe.contabilización'].astype({'date':'datetime64[ns]'})
+datos['Fe.contabilización']=datos['Fe.contabilización'].astype({'date':'datetime64[ns]'}) # convierte el string en formato de fechas
 datos['Cantidad'].dropna(inplace=True) # elimina los datos de la columna que esta en blanco
 datos['Clase de movimiento']=datos['Clase de movimiento'].astype(float)  # convierte los datos string en float
-datos.plot.line(x='Cantidad', y='Fe.contabilización')  # funcion de 
+datos.plot.line(x='Cantidad', y='Fe.contabilización')  # funcion de plotear 
 plt.title('Primer grafico')
 plt.show()
 
