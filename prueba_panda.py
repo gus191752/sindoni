@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 
 
+
 data= {
    "nombre" : [ "gustavo", "yoselin", "aurora" ],
    "edad": ["41","44","5"]
@@ -44,9 +45,17 @@ print(serie_colum)
 
 print("..........")
 
-plt.plot(x,y)
-plt.xlabel('primera grafica')
-#plt.show()
+
+
+#datos.Cantidad=datos.to_numeric(datos.Cantidad)
+#datos.Lote=datos.to_numeric(datos.Lote)
+
+plt.style.use('default')
+datos['Centro']=datos['Centro'].astype(float)   # convierte los datos string en float
+datos['Clase de movimiento']=datos['Clase de movimiento'].astype(float)  # convierte los datos string en float
+datos.plot.line(x='Centro', y='Clase de movimiento')
+plt.title('Primer grafico')
+plt.show()
 
 #dataf=pd.DataFrame(datos)
 #dataf.plot(x,y)
@@ -54,3 +63,5 @@ plt.xlabel('primera grafica')
 #plt.show
 #dataf.decribe()
 #print(dataf)
+
+
