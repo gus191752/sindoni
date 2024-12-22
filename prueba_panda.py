@@ -40,7 +40,7 @@ print(list(datos.columns))  #imprime los nombres de las columnas
 
 print("..........")
 
-serie_colum= datos['Texto breve de material'] # convierte una columna en una serie
+serie_colum= datos['Cantidad'] # convierte una columna en una serie
 print(serie_colum)
 
 print("..........")
@@ -50,10 +50,14 @@ print("..........")
 #datos.Cantidad=datos.to_numeric(datos.Cantidad)
 #datos.Lote=datos.to_numeric(datos.Lote)
 
-plt.style.use('default')
-datos['Centro']=datos['Centro'].astype(float)   # convierte los datos string en float
+plt.style.use('default')  # estilo del grafico
+datos['Cantidad']=datos['Cantidad'].replace(',','',regex=True) # corrige los datos que no pueden convertirse en float
+datos['Cantidad']=datos['Cantidad'].astype(float)   # convierte los datos string en float
+datos['Cantidad'].dropna(inplace=True) # elimina los datos de la columna que esta en blanco
+
+
 datos['Clase de movimiento']=datos['Clase de movimiento'].astype(float)  # convierte los datos string en float
-datos.plot.line(x='Centro', y='Clase de movimiento')
+datos.plot.line(x='Cantidad', y='Clase de movimiento')
 plt.title('Primer grafico')
 plt.show()
 
