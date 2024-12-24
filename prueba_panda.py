@@ -19,34 +19,12 @@ datos = pd.read_csv('C:/Users/gmujica/Desktop/bd.csv', encoding='latin-1' ,  eng
 # print(datos)  # imprime todo el archivo csv
 # print("..........")
 
-# datos.info()  # muestra la informacion de la base de datos
-# print("..........")
-
-# x=[2,3,4]
-# y=[4,7,15]
-# #print(datos['6'])
-
-# ser=datos.iloc[5,0] # convierte filas en series que es lo mismo que un vector
-# print((ser))
-
-# print("..........")
-
-print(list(datos.columns))  #imprime los nombres de las columnas
+#print(list(datos.columns))  #imprime los nombres de las columnas
 
 print("..........")
 
-# serie_colum= datos['Fe.contabilización'] # convierte una columna en una serie
-# print(serie_colum)
 
-# print("..........")
-
-# #datos['Texto breve de material'].describe() # no funciona
-
-# buscar_datos_en_columna=datos['Texto breve de material'].str.contains('AZUCAR') # busca la fila donde encuentre coincidencia
-# print(buscar_datos_en_columna)
-
-# #datos.Cantidad=datos.to_numeric(datos.Cantidad)
-# #datos.Lote=datos.to_numeric(datos.Lote)
+# define las columnas
 
 datos['Cantidad'].dropna(inplace=True) # elimina los datos de la columna que esta en blanco
 
@@ -56,26 +34,32 @@ datos['Cantidad'].drop(columns= 'Cantidad', errors='raise') # elimina los datos 
 
 datos['Cantidad']=datos['Cantidad'].astype(float)   # convierte los datos string en float
 
+datos['Almacén']=datos['Almacén'].astype('Int16')   # convierte los datos string en entero
+datos['Centro']=datos['Centro'].astype('Int16')   # convierte los datos string en entero
+
+
 datos['Fe.contabilización'] = pd.to_datetime(datos['Fe.contabilización']) # convierte el string en formato de fechas
 
-#datos['Cantidad'].info()
 
 ##### agrupar y sumar
 
-print(datos.groupby('Almacén')['Cantidad'].sum())        # muestra valores agrupando 2 variables
-print(datos.groupby(datos["Fe.contabilización"].dt.day))
+print('+++++++++++')
 
-# fechaFinal = datos.date.today() + datos.timedelta(days = -120)
-# fechaInicio = fechaFinal + datos.timedelta(days = -30)
-# df1 = datos[['Almacén','Cantidad']]
-# print(df1.loc[(df1['Cantidad'].dt.date >= fechaInicio) & (df1['Cantidad'].dt.date < fechaFinal)])
+df2f=datos[datos['Almacén'] == 5002  ]   # filtra la fila que coincida con el valor
+print(df2f)
 
+print('****************')
+
+df2 = df2f.groupby(['Texto breve de material','Fe.contabilización', 'Almacén','Centro'])['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+print(df2)
+
+print('.......')
 
 
 plt.style.use('default')  # estilo del grafico
-datos.plot.line(y='Cantidad', x='Fe.contabilización')  # funcion de plotear 
+df2.plot.line(y='Cantidad', x='Fe.contabilización')  # funcion de plotear 
 plt.title('Primer grafico') #titulo
-#plt.show()
+plt.show()
 
 #dataf=pd.DataFrame(datos)
 #dataf.plot(x,y)
