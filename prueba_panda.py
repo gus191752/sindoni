@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 from datetime import date   # libreria para colocar la fecha de los datos
 from matplotlib.ticker import StrMethodFormatter
+import matplotlib.ticker as ticker
+
 
 
 # Convierte la BD en un Dataframe
@@ -51,11 +53,13 @@ print('.......')
 plt.style.use('default')  # estilo del grafico
 #df2.plot.line(y='Cantidad', x='Fe.contabilización')  # funcion de plotear linea
 
-plt.title('Produccion total por articulo')      #El título
+#plt.title('Produccion total por articulo')      #El título
+plt.figure(figsize=(5,5))  ## configura tamaño del grafico
+plt.tight_layout()
 df2.plot.bar(y='Cantidad', x='Fe.contabilización') # funcion de plotear barras
 #df2.set_xlabel('Texto breve de material', fontsize = 5)
 
-plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:.1f}'))  # permite mover el cursor sobre el grafico y ver el valor real
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:.0f}'))  # permite mover el cursor sobre el grafico y ver el valor real
 plt.show()
 
 
