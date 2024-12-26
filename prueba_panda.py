@@ -40,12 +40,9 @@ print('****************')
 
 #### agrupa en una tabla columnas especificas
 
-
-#df2 = df4.groupby(['Material','Texto breve de material','Fe.contabilización', 'Almacén','Centro'])['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
-
+######################################### total mensual por articulo##########################################################
 # permite visualizar el total por articulo mensual en la base de datos
 df2 = df4.groupby(['Almacén','Centro','Material','Texto breve de material' ])['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
-
 print(df2)
 print('.......')
 
@@ -54,10 +51,39 @@ plt.style.use('default')  # estilo del grafico
 #df2.plot.line(y='Cantidad', x='Fe.contabilización')  # funcion de plotear linea
 
 #plt.title('Produccion total por articulo')      #El título
-plt.figure(figsize=(5,5))  ## configura tamaño del grafico
-plt.tight_layout()
+figura1= plt.figure(figsize=(15,15))  ## configura tamaño del grafico
+figura1.tight_layout()
+#ax1=figura1.add_subplot
+
 df2.plot.bar(y='Cantidad', x='Fe.contabilización') # funcion de plotear barras
-#df2.set_xlabel('Texto breve de material', fontsize = 5)
+
+####################################total diario de la produccion#################################################
+df7 = df4.groupby('Fe.contabilización')['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+#df7.plot.line(y='Cantidad', x='Fe.contabilización') # funcion de plotear barras
+print('produccion total por dia')
+print(df7)
+df7.info()
+#####################################consumo de material empaque pastas###########################################################################
+df2f_emp=datos[datos['Almacén'].isin([3000]) ]   # filtra la fila que coincida con varios criterios, ejemplo varios almacenes
+df3f_emp=df2f_emp[df2f_emp['Centro']==1000  ]   # filtra la fila que coincida con el criterio, ejemplo centro 10000 pastas sindoni
+df4_emp=df3f_emp[df3f_emp['Clase de movimiento']==261 ]  # filtra la fila por mov de entrada 101
+df8_emp = df4_emp.groupby(['Almacén','Centro','Material','Texto breve de material' ])['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+#df9 = df8_emp.groupby('Fe.contabilización')['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+#df8_emp.plot.bar(y='Cantidad', x='Fe.contabilización') # funcion de plotear barras
+df8_emp.info()
+print(df8_emp)
+
+######################################entradas de material de empaque##############################################################
+df2f_emp_e=datos[datos['Almacén'].isin([2000]) ]   # filtra la fila que coincida con varios criterios, ejemplo varios almacenes
+df3f_emp_e=df2f_emp_e[df2f_emp_e['Centro']==1000  ]   # filtra la fila que coincida con el criterio, ejemplo centro 10000 pastas sindoni
+df4_emp_e=df3f_emp_e[df3f_emp_e['Clase de movimiento']==101 ]  # filtra la fila por mov de entrada 101
+df8_emp_e = df4_emp_e.groupby(['Almacén','Centro','Material','Texto breve de material' ])['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+#df9 = df8_emp.groupby('Fe.contabilización')['Cantidad'].sum()  # agrupa texto y fecha pero suma las cantidades
+df8_emp_e.plot.bar(y='Cantidad', x='Fe.contabilización') # funcion de plotear barras
+df8_emp_e.info()
+print(df8_emp_e)
+###############################################################################################################3
+
 
 plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:.0f}'))  # permite mover el cursor sobre el grafico y ver el valor real
 plt.show()
