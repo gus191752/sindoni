@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 from datetime import date   # libreria para colocar la fecha de los datos
 from matplotlib.ticker import StrMethodFormatter
-import matplotlib.ticker as ticker
+
 
 
 
